@@ -2,7 +2,17 @@ import json
 
 '''
 CREATING A BASIC CORPUS OF ALL WORDS MENTIONED IN 
-CHAPTER 1 AND 2, AND SAVING AS JSON FILE
+BOOK 1, AND SAVING AS JSON FILE
+
+Format of corpus
+[
+["word 1 of sentence 1", "word 2 of sentence 1", ....],
+["word 1 of sentence 2", "word 2 of sentence 2", ....]],
+.
+.
+["word 1 of sentence n", "word 2 of sentence n", ....]
+]
+
 '''
 
 with open("data\hp.txt", "r") as f:
