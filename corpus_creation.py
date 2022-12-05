@@ -12,44 +12,35 @@ with open("data\hp.txt", "r") as f:
 #print (str(hp))
 #print (hp[0])
 
+chapters = hp.split("CHAPTER")
+print (len(chapters))
 
-chapter1_w_title = hp.split("CHAPTER")[1:2]
-chapter2_w_title = hp.split("CHAPTER")[2:3]
 
-chapter1 = chapter1_w_title[0].split("\n\n")[2:]
-chapter2 = chapter2_w_title[0].split("\n\n")[2:]
-#print (chapter1)
-
-# Adding chapter 1 words
+# PARSING THROUGH EACH CHAPTER OF BOOK 1
 corpus = []
-i = 1
-for para in chapter1:
-    sentences = para.split("\n")
-    word_list = []
-    for sentence in sentences:
-        words = sentence.split(" ")
-        for word in words:
-            word = word.replace("\n", "").replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("'", "").replace("\"", "").replace("-", "").replace("--", "")
-            if word != "":
-                word_list.append(word)
-    corpus.append(word_list)
-    i += 1
+for chap in range(len(chapters)-1):
+    chapter_with_title = hp.split("CHAPTER")[chap+1:chap+2]
+    chapter = chapter_with_title[0].split("\n\n")[2:]
 
-# Adding chapter 2 words
-i = 1
-for para in chapter2:
-    sentences = para.split("\n")
-    word_list = []
-    for sentence in sentences:
-        words = sentence.split(" ")
-        for word in words:
-            word = word.replace("\n", "").replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("'", "").replace("\"", "").replace("-", "").replace("--", "")
-            if word != "":
-                word_list.append(word)
-    corpus.append(word_list)
-    i += 1
-print (corpus)
-
+    # Adding each chapter's words
+    i = 1
+    # Spliting each chapter in paragraphs
+    for para in chapter:
+        # Spliting each paragraph into sentences
+        sentences = para.split("\n")
+        word_list = []
+        for sentence in sentences:
+            # Spliting each sentence in to words
+            words = sentence.split(" ")
+            for word in words:
+                # Refining each word (by removing extra characters)
+                word = word.replace("\n", "").replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("'", "").replace("\"", "").replace("-", "").replace("--", "")
+                if word != "":
+                    word_list.append(word)
+        corpus.append(word_list)
+        i += 1
+    
+#print (corpus)
 
 with open("basic_corpus.json", "w") as f:
     json.dump(corpus, f)
@@ -75,7 +66,7 @@ for i in range(len(basic_corpus)):
     
     final_refined_corpus.append(refined_corpus)
 
-print (final_refined_corpus)
+#print (final_refined_corpus)
 
 with open("refined_corpus.json", "w") as f:
     json.dump(final_refined_corpus, f)
